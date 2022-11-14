@@ -127,15 +127,4 @@ public class Main
             PrintMaxMin(triangles1);
         }
     }
-
-
 }
-
-//double[] arr = {1,2,2,344};
-
-
-
-
-
-
-
