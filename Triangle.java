@@ -1,15 +1,18 @@
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Objects;
 
 public class Triangle
 {
     Dote[] dotes;
-    //   public double Square;
-    //   public double Perimeter;
-
     private double AB;
     private double BC;
     private double AC;
 
+    static ArrayList<Triangle> rectTriangles = new ArrayList();
+    static ArrayList<Triangle> isoTriangles = new ArrayList();
+    static ArrayList<Triangle> equaltTriangles = new ArrayList();
+    static ArrayList<Triangle> randomTriangles = new ArrayList();
 
     public Triangle(Dote[] dotes)
     {
@@ -30,7 +33,7 @@ public class Triangle
         {
             triangleStr += dote.toString() + " ";
         }
-        return triangleStr;
+        return this.InterperetationTriangle() + triangleStr;
     }
 
     public double CalculateSquare()
@@ -75,6 +78,71 @@ public class Triangle
         System.out.println("S = " + this.CalculateSquare());
         System.out.println("P = " + this.CalculatePerimeter());
     }
+
+
+    public void FillGroups()
+    {
+        if (Objects.equals(this.InterperetationTriangle(), "Rectangular"))
+        {
+            rectTriangles.add(this);
+        }
+        if (Objects.equals(this.InterperetationTriangle(), "Equilateral"))
+        {
+            equaltTriangles.add(this);
+        }
+        if (Objects.equals(this.InterperetationTriangle(), "Isosceles"))
+        {
+            isoTriangles.add(this);
+        }
+        if (Objects.equals(this.InterperetationTriangle(), "Random"))
+        {
+            randomTriangles.add(this);
+        }
+    }
+
+    public static Triangle GetMaxTriangle(ArrayList<Triangle> triangles)
+    {
+        try
+        {
+            double minSquare = triangles.get(0).CalculateSquare();
+        } catch (IndexOutOfBoundsException ex)
+        {
+            System.out.println("Size = 0");
+            return null;
+        }
+        double maxSquare = 0;
+        Triangle maxTriangle = null;
+        for (Triangle triangle : triangles)
+        {
+            if (triangle.CalculateSquare() > maxSquare)
+            {
+                maxSquare = triangle.CalculateSquare();
+                maxTriangle = triangle;
+            }
+        }
+        return maxTriangle;
+    }
+
+    public static Triangle GetMinTriangle(ArrayList<Triangle> triangles)
+    {
+        try
+        {
+            double minSquare = triangles.get(0).CalculateSquare();
+        } catch (IndexOutOfBoundsException ex)
+        {
+            System.out.println("Size = 0");
+            return null;
+        }
+        double minSquare = Double.MAX_VALUE;
+        Triangle minTriangle = null;
+        for (Triangle triangle : triangles)
+        {
+            if (triangle.CalculateSquare() < minSquare)
+            {
+                minSquare = triangle.CalculateSquare();
+                minTriangle = triangle;
+            }
+        }
+        return minTriangle;
+    }
 }
-
-
